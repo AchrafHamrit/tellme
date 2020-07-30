@@ -45,11 +45,8 @@ router.get('/fav', auth, async (req, res) => {
 router.post(
   '/',
   [
-    auth,
-    [
-      check('user_id', 'UserId is required').not().isEmpty(),
-      check('content', 'Message content is required').not().isEmpty(),
-    ],
+    check('user_id', 'UserId is required').not().isEmpty(),
+    check('content', 'Message content is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
