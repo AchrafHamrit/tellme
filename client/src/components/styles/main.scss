@@ -1,0 +1,10 @@
+// Custom theme
+@import 'themes/custom';
+
+// Components
+@import '_navbar';
+@import '_button';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}

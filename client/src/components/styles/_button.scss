@@ -1,0 +1,18 @@
+@import 'themes/_variables';
+
+.btn {
+  padding: 10px 30px;
+}
+
+.btn-outline-light {
+  border: 2px solid $border-light;
+  border-bottom: 3px solid $border-light;
+  color: $gray-700;
+  font-weight: 600;
+
+  &:hover {
+    border: 2px solid $border-light;
+    border-bottom: 3px solid $border-light;
+    color: $gray-800;
+  }
+}

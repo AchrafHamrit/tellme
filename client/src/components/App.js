@@ -1,8 +1,20 @@
 import React from 'react';
-import './styling/App.scss';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// App layout components
+import Navbar from './layout/Navbar';
 
 function App() {
-  return <div className='app'>Hello app</div>;
+  return (
+    <Router>
+      <div className='app'>
+        <Navbar />
+        <Switch>
+          <Route path='' />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

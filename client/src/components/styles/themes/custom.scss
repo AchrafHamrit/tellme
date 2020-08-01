@@ -1,0 +1,19 @@
+@import '_variables';
+
+// Import font
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+
+// Colors
+$theme-colors: (
+  'primary': $primary,
+  'danger': $danger,
+  'light': $light,
+);
+
+// General
+$border-radius: 12px;
+
+// Navbar
+$navbar-padding-y: 1.5rem;
+
+@import '~bootstrap/scss/bootstrap';
