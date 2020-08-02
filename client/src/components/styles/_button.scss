@@ -16,3 +16,9 @@
     color: $gray-800;
   }
 }
+
+.dropdown-toggle {
+  &::after {
+    content: none;
+  }
+}

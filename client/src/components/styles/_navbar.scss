@@ -2,4 +2,16 @@
 
 .navbar {
   border-bottom: 3px solid $border-light;
+
+  .navbar-brand {
+    img {
+      vertical-align: unset;
+    }
+  }
+
+  .navbar-nav {
+    .dropdown-menu {
+      position: absolute;
+    }
+  }
 }
