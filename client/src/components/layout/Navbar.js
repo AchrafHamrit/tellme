@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Navbar, Nav, Button, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsisH,
+  faSignOutAlt,
+  faEnvelope,
+  faCog,
+} from '@fortawesome/free-solid-svg-icons';
 
 // Images
 import Logo from '../../images/logo.svg';
@@ -16,9 +21,30 @@ const NavbarComponent = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href='#/action-1'>Action</Dropdown.Item>
-          <Dropdown.Item href='#/action-2'>Another action</Dropdown.Item>
-          <Dropdown.Item href='#/action-3'>Something else</Dropdown.Item>
+          <Link to='/messages' className='dropdown-item'>
+            <FontAwesomeIcon
+              className='icon mr-3'
+              icon={faEnvelope}
+              size='lg'
+            />
+            Messages
+          </Link>
+          <Link to='/settings' className='dropdown-item'>
+            <FontAwesomeIcon className='icon mr-3' icon={faCog} size='lg' />
+            Settings
+          </Link>
+          <Dropdown.Divider></Dropdown.Divider>
+          <button
+            onClick={() => console.log('logout')}
+            className='dropdown-item'
+          >
+            <FontAwesomeIcon
+              className='icon mr-3'
+              icon={faSignOutAlt}
+              size='lg'
+            />
+            Logout
+          </button>
         </Dropdown.Menu>
       </Dropdown>
     </>

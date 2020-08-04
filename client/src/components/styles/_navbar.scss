@@ -12,6 +12,23 @@
   .navbar-nav {
     .dropdown-menu {
       position: absolute;
+      margin-top: 10px !important;
+      border: 3px solid $border-light;
+
+      .dropdown-item {
+        padding: 10px 20px;
+        font-weight: 600;
+        color: $secondary;
+
+        .icon {
+          min-width: 20px;
+          color: $gray-400;
+        }
+
+        &:active {
+          background: $light;
+        }
+      }
     }
   }
 }
