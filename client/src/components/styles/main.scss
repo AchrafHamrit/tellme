@@ -1,10 +1,60 @@
 // Custom theme
 @import 'themes/custom';
+@import 'themes/_variables';
 
 // Components
 @import '_navbar';
 @import '_button';
 
+* {
+  transition: all ease-in-out 0.2s;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  color: #3d4659;
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.container-inner {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: white;
+  border-bottom: 3px solid darken($light, 5%);
+  border-radius: 12px;
+}
+
+.form-container {
+  max-width: 480px;
+
+  .form-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $gray-800;
+  }
+
+  input.form-control {
+    border: 2px solid darken($light, 5%);
+    font-weight: 500;
+
+    &:focus {
+      box-shadow: none;
+      border: 2px solid darken($light, 15%);
+    }
+  }
+
+  .link-secondary {
+    color: darken($secondary, 15%);
+    font-weight: 600;
+
+    &:hover {
+      color: darken($secondary, 25%);
+    }
+  }
 }

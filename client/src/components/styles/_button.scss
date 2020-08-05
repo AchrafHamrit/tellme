@@ -4,15 +4,31 @@
   padding: 10px 30px;
 }
 
+.btn-primary {
+  border-bottom: 3px solid darken($primary, 10%);
+  color: white;
+  font-weight: 600;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled):active:focus {
+    border-bottom: 3px solid darken($primary, 20%);
+    box-shadow: none;
+    color: white;
+  }
+}
+
 .btn-outline-light {
-  border: 2px solid $border-light;
-  border-bottom: 3px solid $border-light;
+  border: 2px solid darken($light, 5%);
+  border-bottom: 3px solid darken($light, 5%);
   color: $gray-700;
   font-weight: 600;
 
   &:hover {
-    border: 2px solid $border-light;
-    border-bottom: 3px solid $border-light;
+    border: 2px solid darken($light, 5%);
+    border-bottom: 3px solid darken($light, 5%);
     color: $gray-800;
   }
 }

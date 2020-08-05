@@ -1,7 +1,7 @@
 @import 'themes/_variables';
 
 .navbar {
-  border-bottom: 3px solid $border-light;
+  border-bottom: 3px solid darken($light, 5%);
 
   .navbar-brand {
     img {
@@ -13,7 +13,7 @@
     .dropdown-menu {
       position: absolute;
       margin-top: 10px !important;
-      border: 3px solid $border-light;
+      border: 3px solid darken($light, 5%);
 
       .dropdown-item {
         padding: 10px 20px;
