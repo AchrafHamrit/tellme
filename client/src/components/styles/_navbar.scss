@@ -18,7 +18,7 @@
       .dropdown-item {
         padding: 10px 20px;
         font-weight: 600;
-        color: $secondary;
+        color: darken($secondary, 10%);
 
         .icon {
           min-width: 20px;
