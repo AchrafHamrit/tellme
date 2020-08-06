@@ -1,0 +1,21 @@
+@import 'themes/_variables';
+
+.alerts {
+  .alert {
+    padding: '20px';
+    font-weight: 500;
+    color: #fff;
+
+    &.success {
+      background-color: $secondary;
+    }
+
+    &.danger {
+      background-color: $danger;
+    }
+
+    & .icon {
+      opacity: 0.7;
+    }
+  }
+}
