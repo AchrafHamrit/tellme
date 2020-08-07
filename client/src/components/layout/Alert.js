@@ -1,22 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-const Alert = () => {
-  let alerts = [
-    // {
-    //   id: 1,
-    //   type: 'danger',
-    //   message: 'This is a danger alert!',
-    // },
-    // {
-    //   id: 2,
-    //   type: 'success',
-    //   message: 'This is a success alert!',
-    // },
-  ];
-
+const Alert = ({ alerts }) => {
   return (
     alerts.length > 0 && (
       <Container>
@@ -36,4 +24,8 @@ const Alert = () => {
   );
 };
 
-export default Alert;
+const mapSateToProps = (state) => ({
+  alerts: state.alerts,
+});
+
+export default connect(mapSateToProps, {})(Alert);

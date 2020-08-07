@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Container, Form, Button } from 'react-bootstrap';
+
+// Actions
+import { register, clearErrors } from '../../redux/actions/authActions';
+import { setAlert } from '../../redux/actions/alertActions';
+
+// App layout components
+import Spinner from '../layout/Spinner';
 
 // Utils
 import { WEBSITE_NAME } from '../../utils/Data';
 
-const Register = () => {
+const Register = (props) => {
+  const {
+    isAuthenticated,
+    error,
+    loading,
+    register,
+    clearErrors,
+    setAlert,
+  } = props;
+
   const [user, setUser] = useState({
     username: '',
     email: '',
@@ -18,15 +35,41 @@ const Register = () => {
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
+    // eslint-disable-next-line
+  }, [isAuthenticated, props.history]);
+
+  useEffect(() => {
+    if (error && error.length) {
+      if (typeof error === 'object') {
+        error.forEach((err) => {
+          setAlert(err.msg, 'danger');
+        });
+      } else {
+        setAlert(error, 'danger');
+      }
+
+      clearErrors();
+    }
+
+    // eslint-disable-next-line
+  }, [error]);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (username === '' || email === '' || password === '') {
-      // setAlert('Please enter all fields');
+      setAlert('Please enter all fields', 'danger');
+    } else if (password.length < 6) {
+      setAlert('Password must contain at least 6 characters', 'danger');
+    } else if (password !== password2) {
+      setAlert('Passwords do not match', 'danger');
     } else {
-      // login({ username, password });
-
-      console.log(user);
+      await register({ username, email, password });
     }
   };
 
@@ -89,7 +132,7 @@ const Register = () => {
                 />
               </Form.Group>
 
-              <div className='d-flex align-items-center justify-content-between mt-4'>
+              <div className='links d-flex align-items-center justify-content-between mt-4'>
                 <span>
                   Have an account?{' '}
                   <Link className='link-secondary' to='/login'>
@@ -97,9 +140,13 @@ const Register = () => {
                   </Link>
                 </span>
 
-                <Button variant='primary' type='submit'>
-                  Create
-                </Button>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <Button variant='primary' type='submit'>
+                    Create
+                  </Button>
+                )}
               </div>
             </Form>
           </div>
@@ -109,4 +156,12 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapSateToProps = (state) => ({
+  error: state.auth.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading,
+});
+
+export default connect(mapSateToProps, { register, clearErrors, setAlert })(
+  Register
+);

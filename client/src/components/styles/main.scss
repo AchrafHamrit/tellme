@@ -4,6 +4,7 @@
 
 // Components
 @import '_navbar';
+@import '_spinner';
 @import '_alert';
 @import '_button';
 
@@ -48,6 +49,10 @@ a {
       box-shadow: none;
       border: 2px solid darken($light, 15%);
     }
+  }
+
+  .links {
+    min-height: 48px;
   }
 
   .link-secondary {
