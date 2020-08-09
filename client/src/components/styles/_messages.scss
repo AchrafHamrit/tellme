@@ -37,13 +37,17 @@
       position: absolute;
       top: -2px;
       right: 20px;
-      background-color: $secondary;
+      background-color: $primary;
       border-radius: 0 0 12px 12px;
       cursor: pointer;
 
       .icon {
         color: white;
         opacity: 0.4;
+
+        &.is-fav {
+          opacity: 1;
+        }
       }
 
       &:hover {
