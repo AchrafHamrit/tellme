@@ -4,7 +4,8 @@ import Helmet from 'react-helmet';
 import { Container, Form, Button } from 'react-bootstrap';
 
 // Actions
-import { loadUserProfile } from '../../redux/actions/userActions';
+import { loadUserProfile, clearErrors } from '../../redux/actions/userActions';
+import { setAlert } from '../../redux/actions/alertActions';
 
 // App layout components
 import Spinner from '../layout/Spinner';
@@ -18,7 +19,14 @@ import MalePicture from '../../images/male.svg';
 import FemalePicture from '../../images/female.svg';
 
 const Profile = (props) => {
-  const { match, user_profile, loading, loadUserProfile } = props;
+  const {
+    match,
+    user_profile,
+    loading,
+    loadUserProfile,
+    clearErrors,
+    setAlert,
+  } = props;
 
   const [message, setMessage] = useState('');
 
@@ -36,8 +44,6 @@ const Profile = (props) => {
 
   const { name, username, bio, gender, allow_messages } = user_profile || {};
 
-  console.log(props);
-
   return (
     <>
       <Helmet>
@@ -53,38 +59,53 @@ const Profile = (props) => {
             'Not found'
           ) : (
             <div className='profile mx-auto'>
-              <img src={FemalePicture} alt='Female' className='picture' />
+              <img
+                className='picture'
+                src={
+                  gender === 1
+                    ? MalePicture
+                    : gender === 2
+                    ? FemalePicture
+                    : OtherPicture
+                }
+                alt='Profile'
+              />
 
               <div className='user-details mt-4'>
-                <h3 className='name'>Ashraf Hamrit</h3>
+                <h3 className='name'>{name || username}</h3>
                 <p className='bio'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Obcaecati aperiam voluptate illo quo
+                  {bio || 'This user does not have a bio 🤭'}
                 </p>
               </div>
 
-              <Form className='form form-container mt-4' onSubmit={onSubmit}>
-                <Form.Group>
-                  <Form.Label>Your message</Form.Label>
-                  <Form.Control
-                    as='textarea'
-                    rows='3'
-                    name='message'
-                    value={message}
-                    onChange={onChange}
-                  />
-                </Form.Group>
+              {allow_messages ? (
+                <Form className='form form-container mt-4' onSubmit={onSubmit}>
+                  <Form.Group>
+                    <Form.Label>Your message</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      rows='3'
+                      name='message'
+                      value={message}
+                      onChange={onChange}
+                    />
+                  </Form.Group>
 
-                <div className='links d-flex align-items-center justify-content-center mt-4'>
-                  {false ? (
-                    <Spinner />
-                  ) : (
-                    <Button variant='primary' type='submit'>
-                      Send
-                    </Button>
-                  )}
+                  <div className='links mt-4'>
+                    {loading ? (
+                      <Spinner />
+                    ) : (
+                      <Button variant='primary' type='submit'>
+                        Send
+                      </Button>
+                    )}
+                  </div>
+                </Form>
+              ) : (
+                <div className='mt-4'>
+                  <h6>Receiving messages is disabled</h6>
                 </div>
-              </Form>
+              )}
             </div>
           )}
         </div>
@@ -99,4 +120,8 @@ const mapSateToProps = (state) => ({
   error: state.user.error,
 });
 
-export default connect(mapSateToProps, { loadUserProfile })(Profile);
+export default connect(mapSateToProps, {
+  loadUserProfile,
+  clearErrors,
+  setAlert,
+})(Profile);
