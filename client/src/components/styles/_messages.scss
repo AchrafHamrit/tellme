@@ -21,10 +21,10 @@
   .cards-container {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
 
     @include media-breakpoint-up(md) {
-      grid-template-columns: auto auto;
+      grid-template-columns: 50% 50%;
     }
   }
 
