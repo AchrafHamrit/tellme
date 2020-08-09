@@ -1,0 +1,78 @@
+@import 'themes/_variables';
+
+.messages {
+  max-width: 780px;
+
+  .picture {
+    height: 90px;
+  }
+
+  .user-details {
+    .name,
+    .title {
+      font-weight: 600;
+    }
+
+    .name {
+      color: $secondary;
+    }
+  }
+
+  .cards-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: auto;
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: auto auto;
+    }
+  }
+
+  .message-card {
+    border: 2px solid darken($light, 5%);
+    border-radius: 12px;
+    position: relative;
+
+    .fav-container {
+      position: absolute;
+      top: -2px;
+      right: 20px;
+      background-color: $secondary;
+      border-radius: 0 0 12px 12px;
+      cursor: pointer;
+
+      .icon {
+        color: white;
+        opacity: 0.4;
+      }
+
+      &:hover {
+        .icon {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+    }
+
+    .card-inner {
+      min-height: 110px;
+
+      .content {
+        max-width: 90%;
+      }
+
+      .link-secondary {
+        padding: 0;
+        background: none;
+        border: none;
+      }
+
+      .card-bottom {
+        .date {
+          font-weight: 600;
+          color: $gray-500;
+        }
+      }
+    }
+  }
+}

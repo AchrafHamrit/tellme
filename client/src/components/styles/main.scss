@@ -11,6 +11,7 @@
 // Pages
 @import '_auth';
 @import '_profile';
+@import '_messages';
 
 * {
   transition: all ease-in-out 0.2s;
@@ -57,13 +58,13 @@ a {
   .links {
     min-height: 48px;
   }
+}
 
-  .link-secondary {
-    color: darken($secondary, 15%);
-    font-weight: 600;
+.link-secondary {
+  color: darken($secondary, 15%);
+  font-weight: 600;
 
-    &:hover {
-      color: darken($secondary, 25%);
-    }
+  &:hover {
+    color: darken($secondary, 25%);
   }
 }
