@@ -4,11 +4,8 @@ import Helmet from 'react-helmet';
 import { Container, Form, Button } from 'react-bootstrap';
 
 // Actions
-import {
-  loadUserProfile,
-  sendMessage,
-  clearErrors,
-} from '../../redux/actions/userActions';
+import { loadUserProfile } from '../../redux/actions/userActions';
+import { sendMessage, clearErrors } from '../../redux/actions/messageActions';
 import { setAlert } from '../../redux/actions/alertActions';
 
 // App layout components
@@ -155,8 +152,8 @@ const Profile = (props) => {
 const mapSateToProps = (state) => ({
   user_profile: state.user.user_profile,
   loading: state.user.loading,
-  loading_send: state.user.loading_send,
-  error_send: state.user.error_send,
+  loading_send: state.message.loading_send,
+  error_send: state.message.error_send,
 });
 
 export default connect(mapSateToProps, {

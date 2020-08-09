@@ -1,7 +1,7 @@
 import {
-  USER_PROFILE_LOADED,
-  USER_PROFILE_ERROR,
-  SET_LOADING_USER_PROFILE,
+  SEND_MESSAGE,
+  SET_LOADING_SEND_MESSAGE,
+  SEND_MESSAGE_ERROR,
   CLEAR_ERRORS,
 } from '../types';
 
@@ -12,25 +12,24 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case USER_PROFILE_LOADED:
+    case SEND_MESSAGE:
       return {
         ...state,
-        user_profile: action.payload,
-        loading: false,
+        error_send: false,
+        loading_send: false,
       };
 
-    case USER_PROFILE_ERROR:
+    case SEND_MESSAGE_ERROR:
       return {
         ...state,
-        user_profile: null,
-        error: action.payload || null,
-        loading: false,
+        error_send: action.payload,
+        loading_send: false,
       };
 
-    case SET_LOADING_USER_PROFILE:
+    case SET_LOADING_SEND_MESSAGE:
       return {
         ...state,
-        loading: true,
+        loading_send: true,
       };
 
     case CLEAR_ERRORS:
