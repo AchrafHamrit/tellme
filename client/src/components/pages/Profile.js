@@ -4,7 +4,11 @@ import Helmet from 'react-helmet';
 import { Container, Form, Button } from 'react-bootstrap';
 
 // Actions
-import { loadUserProfile, clearErrors } from '../../redux/actions/userActions';
+import {
+  loadUserProfile,
+  sendMessage,
+  clearErrors,
+} from '../../redux/actions/userActions';
 import { setAlert } from '../../redux/actions/alertActions';
 
 // App layout components
@@ -23,12 +27,18 @@ const Profile = (props) => {
     match,
     user_profile,
     loading,
+    loading_send,
+    error_send,
     loadUserProfile,
+    sendMessage,
     clearErrors,
     setAlert,
   } = props;
+  const { _id, name, username, bio, gender, allow_messages } =
+    user_profile || {};
 
   const [message, setMessage] = useState('');
+  const [is_sent, setIsSent] = useState(false);
 
   const onChange = (e) => setMessage(e.target.value);
 
@@ -38,11 +48,36 @@ const Profile = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (error_send && error_send.length) {
+      if (typeof error_send === 'object') {
+        error_send.forEach((err) => {
+          setAlert(err.msg, 'danger');
+        });
+      } else {
+        setAlert(error_send, 'danger');
+      }
+
+      clearErrors();
+    }
+
+    // eslint-disable-next-line
+  }, [error_send]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-  };
 
-  const { name, username, bio, gender, allow_messages } = user_profile || {};
+    if (message === '') {
+      setAlert('Message cannot be empty', 'danger');
+      return;
+    }
+
+    await sendMessage({ user_id: _id, content: message });
+
+    if (!error_send) {
+      setIsSent(true);
+    }
+  };
 
   return (
     <>
@@ -88,12 +123,15 @@ const Profile = (props) => {
                       name='message'
                       value={message}
                       onChange={onChange}
+                      disabled={is_sent}
                     />
                   </Form.Group>
 
-                  <div className='links mt-4'>
-                    {loading ? (
+                  <div className='links d-flex align-items-center justify-content-center mt-4'>
+                    {loading_send ? (
                       <Spinner />
+                    ) : is_sent ? (
+                      <div className='message-sent'>Message sent!</div>
                     ) : (
                       <Button variant='primary' type='submit'>
                         Send
@@ -117,11 +155,13 @@ const Profile = (props) => {
 const mapSateToProps = (state) => ({
   user_profile: state.user.user_profile,
   loading: state.user.loading,
-  error: state.user.error,
+  loading_send: state.user.loading_send,
+  error_send: state.user.error_send,
 });
 
 export default connect(mapSateToProps, {
   loadUserProfile,
+  sendMessage,
   clearErrors,
   setAlert,
 })(Profile);

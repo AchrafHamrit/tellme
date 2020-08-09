@@ -16,4 +16,11 @@
       color: $gray-600;
     }
   }
+
+  .form-container {
+    .message-sent {
+      font-weight: 600;
+      color: $success;
+    }
+  }
 }
