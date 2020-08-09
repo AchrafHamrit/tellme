@@ -8,6 +8,10 @@
 @import '_alert';
 @import '_button';
 
+// Pages
+@import '_auth';
+@import '_profile';
+
 * {
   transition: all ease-in-out 0.2s;
 }
@@ -33,15 +37,14 @@ a {
 }
 
 .form-container {
-  max-width: 480px;
-
   .form-label {
     font-size: 0.9rem;
     font-weight: 500;
     color: $gray-800;
   }
 
-  input.form-control {
+  input.form-control,
+  textarea.form-control {
     border: 2px solid darken($light, 5%);
     font-weight: 500;
 

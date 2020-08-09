@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Ellipse_10" data-name="Ellipse 10" cx="60" cy="60" r="60" transform="translate(-27.079 -22.442)" fill="#feb74d"/>
+    </clipPath>
+  </defs>
+  <g id="male" transform="translate(-623 -200)">
+    <g id="Head" transform="translate(650.079 222.442)">
+      <circle id="Ellipse_9" data-name="Ellipse 9" cx="60" cy="60" r="60" transform="translate(-27.079 -22.442)" fill="#36c2fe"/>
+      <g id="Mask_Group_2" data-name="Mask Group 2" clip-path="url(#clip-path)">
+        <path id="Head-2" data-name="Head" d="M0,117.145l13.307-61.8C5.886,46.667.863,36.029,1.7,24.111,4.121-10.23,52.1-2.675,61.434,14.657s8.225,61.3-3.837,64.4C52.786,80.289,42.539,77.263,32.109,71l6.547,46.145Z" fill="#b28b67"/>
+      </g>
+    </g>
+    <path id="Hair" d="M16.78,74.281C11.928,52.776-1.893,38.116.218,28.5S11.47,16.55,11.47,16.55,16.2-2.506,41.966.34s41.5,13.508,34.7,36.969c-6.243,0-13.781-2.25-24.2,1.6-4.96,1.834-7.1,11.378-7.1,11.378h-4.71S33.805,38.966,27.14,41.967,24.11,56.55,24.11,56.55L21.79,74.281Z" transform="translate(643.636 211.239)" fill="#191847"/>
+  </g>
+</svg>

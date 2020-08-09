@@ -1,0 +1,19 @@
+@import 'themes/_variables';
+
+.profile {
+  max-width: 480px;
+
+  .picture {
+    height: 90px;
+  }
+
+  .user-details {
+    .name {
+      font-weight: 600;
+    }
+
+    .bio {
+      color: $gray-600;
+    }
+  }
+}

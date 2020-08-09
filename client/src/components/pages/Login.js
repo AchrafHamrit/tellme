@@ -74,11 +74,11 @@ const Login = (props) => {
       </Helmet>
       <Container>
         <div className='container-inner px-3 mt-4'>
-          <div className='form-container mx-auto'>
+          <div className='auth mx-auto'>
             <h4 className='mb-3'>
               <strong>Welcome back!</strong>
             </h4>
-            <Form className='form' onSubmit={onSubmit}>
+            <Form className='form form-container' onSubmit={onSubmit}>
               <Form.Group>
                 <Form.Label>Email or username</Form.Label>
                 <Form.Control
