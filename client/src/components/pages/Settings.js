@@ -7,6 +7,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import {
   loadSettings,
   updateProfile,
+  updatePassword,
   clearErrors,
 } from '../../redux/actions/authActions';
 import { setAlert } from '../../redux/actions/alertActions';
@@ -24,6 +25,7 @@ const Settings = (props) => {
     loading_settings,
     loadSettings,
     updateProfile,
+    updatePassword,
     clearErrors,
     setAlert,
   } = props;
@@ -48,10 +50,9 @@ const Settings = (props) => {
   const [passwords, setPasswords] = useState({
     old_password: '',
     new_password: '',
-    confirm_password: '',
   });
 
-  const { old_password, new_password, confirm_password } = passwords;
+  const { old_password, new_password } = passwords;
 
   const onChange = (e) =>
     setUserData({ ...user, [e.target.name]: e.target.value });
@@ -100,6 +101,25 @@ const Settings = (props) => {
       name,
       bio,
       gender,
+    });
+  };
+
+  const onSubmitPassword = async (e) => {
+    e.preventDefault();
+
+    if (old_password === '') {
+      setAlert('Old password is empty', 'danger');
+      return;
+    }
+
+    if (new_password === '' || new_password.length < 6) {
+      setAlert('Password must contain at least 6 characters', 'danger');
+      return;
+    }
+
+    await updatePassword({
+      old_password,
+      new_password,
     });
   };
 
@@ -197,27 +217,42 @@ const Settings = (props) => {
                   </Form.Control>
                 </Form.Group>
 
-                {/* <Form.Group>
-                <Form.Label>New password</Form.Label>
-                <Form.Control
-                  type='password'
-                  placeholder='New password'
-                  name='password'
-                  value={new_password}
-                  onChange={onChangePasswords}
-                />
-              </Form.Group>
+                <div className='links d-flex align-items-center justify-content-end mt-4'>
+                  {loading_settings ? (
+                    <Spinner />
+                  ) : (
+                    <Button variant='primary' type='submit'>
+                      Update
+                    </Button>
+                  )}
+                </div>
+              </Form>
 
-              <Form.Group>
-                <Form.Label>Password confirmation</Form.Label>
-                <Form.Control
-                  type='password'
-                  placeholder='Password confirmation'
-                  name='confirm_password'
-                  value={confirm_password}
-                  onChange={onChangePasswords}
-                />
-              </Form.Group> */}
+              <h4 className='my-3'>
+                <strong>Security</strong>
+              </h4>
+              <Form className='form form-container' onSubmit={onSubmitPassword}>
+                <Form.Group>
+                  <Form.Label>Old password</Form.Label>
+                  <Form.Control
+                    type='password'
+                    placeholder='Old password'
+                    name='old_password'
+                    value={old_password}
+                    onChange={onChangePasswords}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>New password</Form.Label>
+                  <Form.Control
+                    type='password'
+                    placeholder='New password'
+                    name='new_password'
+                    value={new_password}
+                    onChange={onChangePasswords}
+                  />
+                </Form.Group>
 
                 <div className='links d-flex align-items-center justify-content-end mt-4'>
                   {loading_settings ? (
@@ -246,6 +281,7 @@ const mapSateToProps = (state) => ({
 export default connect(mapSateToProps, {
   loadSettings,
   updateProfile,
+  updatePassword,
   clearErrors,
   setAlert,
 })(Settings);

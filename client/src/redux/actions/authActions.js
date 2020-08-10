@@ -98,6 +98,31 @@ export const updateProfile = (formData) => async (dispatch) => {
   }
 };
 
+// Update password
+export const updatePassword = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    dispatch(setLoadingSettings());
+
+    const res = await axios.put('api/users/password', formData, config);
+
+    dispatch({ type: UPDATE_PASSWORD, payload: res.data });
+
+    dispatch(loadUser());
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SETTINGS_ERROR,
+      payload: error?.response?.data,
+    });
+  }
+};
+
 // Register User
 export const register = (formData) => async (dispatch) => {
   const config = {

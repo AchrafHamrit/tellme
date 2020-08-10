@@ -72,17 +72,14 @@ router.post(
 //  @desc        Update a user
 //  @access      Private
 router.put('/', auth, async (req, res) => {
-  const { password, allow_messages, name, bio, gender } = req.body;
+  const { allow_messages, name, bio, gender } = req.body;
 
   // New user object
   const new_user = {};
-  if (password && password.length >= 6) {
-    const salt = await bcrypt.genSalt(10);
-    new_user.password = await bcrypt.hash(password, salt);
-  }
+
   if (allow_messages !== null) new_user.allow_messages = allow_messages;
-  if (name) new_user.name = name;
-  if (bio) new_user.bio = bio;
+  if (name !== null) new_user.name = name;
+  if (bio !== null) new_user.bio = bio;
   if (gender) new_user.gender = gender;
 
   try {
@@ -97,11 +94,65 @@ router.put('/', auth, async (req, res) => {
     ).select('-password');
 
     res.json(user);
-  } catch (err) {
-    console.error(er.message);
+  } catch (error) {
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
+
+//  @route       PUT api/users/password
+//  @desc        Update user password
+//  @access      Private
+router.put(
+  '/password',
+  [
+    auth,
+    [
+      check('old_password', 'Old assword is required').exists(),
+      check('new_password', 'Password must be more than 6 characters').isLength(
+        {
+          min: 6,
+        }
+      ),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+
+    const { old_password, new_password } = req.body;
+
+    try {
+      let user = await User.findById(req.user.id);
+
+      if (!user) return res.status(404).json([{ msg: 'User not found' }]);
+
+      const isMatch = await bcrypt.compare(old_password, user.password);
+
+      if (!isMatch) {
+        return res.status(400).json([{ msg: 'Old password is incorrect' }]);
+      }
+
+      // New user object
+      const new_user = {};
+      const salt = await bcrypt.genSalt(10);
+      new_user.password = await bcrypt.hash(new_password, salt);
+
+      user = await User.findByIdAndUpdate(
+        req.user.id,
+        { $set: new_user },
+        { new: true }
+      ).select('-password');
+
+      res.json(user);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 //  @route       GET api/users/:username
 //  @desc        Get user by username

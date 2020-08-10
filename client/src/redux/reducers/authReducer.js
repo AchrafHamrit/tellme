@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
     case UPDATE_PASSWORD:
       return {
         ...state,
-        loading_profile: false,
+        loading_settings: false,
       };
 
     case REGISTER_FAIL:

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Alert = ({ alerts }) => {
+  useEffect(() => {
+    // Scroll top
+    if (alerts && alerts.length) window.scrollTo(0, 0);
+  }, [alerts]);
+
   return (
     alerts.length > 0 && (
       <Container>
