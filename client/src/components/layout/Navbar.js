@@ -12,18 +12,24 @@ import {
 
 // Actions
 import { logout, loadUser } from '../../redux/actions/authActions';
+import { clearMessages } from '../../redux/actions/messageActions';
 
 // Images
 import Logo from '../../images/logo.svg';
 
 const NavbarComponent = (props) => {
-  const { isAuthenticated, user, logout, loadUser } = props;
+  const { isAuthenticated, user, logout, loadUser, clearMessages } = props;
 
   useEffect(() => {
     loadUser();
 
     // eslint-disable-next-line
   }, []);
+
+  const logoutFunction = () => {
+    logout();
+    clearMessages();
+  };
 
   const userMenu = (
     <>
@@ -53,7 +59,7 @@ const NavbarComponent = (props) => {
             Settings
           </Link>
           <Dropdown.Divider></Dropdown.Divider>
-          <button onClick={() => logout()} className='dropdown-item'>
+          <button onClick={() => logoutFunction()} className='dropdown-item'>
             <FontAwesomeIcon
               className='icon mr-3'
               icon={faSignOutAlt}
@@ -94,4 +100,6 @@ const mapSateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapSateToProps, { logout, loadUser })(NavbarComponent);
+export default connect(mapSateToProps, { logout, loadUser, clearMessages })(
+  NavbarComponent
+);

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GET_MESSAGES,
   SEND_MESSAGE,
+  CLEAR_MESSAGES,
   SET_LOADING_MESSAGES,
   SET_LOADING_SEND_MESSAGE,
   GET_MESSAGES_ERROR,
@@ -50,7 +51,7 @@ export const sendMessage = (formData) => async (dispatch) => {
   }
 };
 
-// Send message
+// Toggle message fav
 export const toggleFav = (id) => async (dispatch) => {
   try {
     await axios.put('/api/messages/fav/' + id);
@@ -60,6 +61,11 @@ export const toggleFav = (id) => async (dispatch) => {
       payload: error.response?.data,
     });
   }
+};
+
+// Clear messages
+export const clearMessages = () => {
+  return { type: CLEAR_MESSAGES };
 };
 
 // Set loading messages to true

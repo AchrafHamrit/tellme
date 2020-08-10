@@ -1,6 +1,7 @@
 import {
   GET_MESSAGES,
   SEND_MESSAGE,
+  CLEAR_MESSAGES,
   SET_LOADING_MESSAGES,
   SET_LOADING_SEND_MESSAGE,
   GET_MESSAGES_ERROR,
@@ -33,6 +34,12 @@ export default (state = initialState, action) => {
         ...state,
         error_send: false,
         loading_send: false,
+      };
+
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        messages: null,
       };
 
     case GET_MESSAGES_ERROR:
