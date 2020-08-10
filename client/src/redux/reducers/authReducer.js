@@ -1,12 +1,17 @@
 import {
-  SET_LOADING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  SETTINGS_LOADED,
+  UPDATE_SETTINGS,
+  UPDATE_PASSWORD,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SET_LOADING,
+  SET_LOADING_SETTINGS,
   AUTH_ERROR,
+  SETTINGS_ERROR,
   CLEAR_ERRORS,
 } from '../types';
 
@@ -14,6 +19,7 @@ const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
+  loading_settings: true,
   user: null,
   error: null,
 };
@@ -39,6 +45,20 @@ export default (state = initialState, action) => {
         user: action.payload,
       };
 
+    case SETTINGS_LOADED:
+      return {
+        ...state,
+        loading_settings: false,
+        user: action.payload,
+      };
+
+    case UPDATE_SETTINGS:
+    case UPDATE_PASSWORD:
+      return {
+        ...state,
+        loading_profile: false,
+      };
+
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -54,10 +74,23 @@ export default (state = initialState, action) => {
         error: action.payload || null,
       };
 
+    case SETTINGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading_settings: false,
+      };
+
     case SET_LOADING:
       return {
         ...state,
         loading: true,
+      };
+
+    case SET_LOADING_SETTINGS:
+      return {
+        ...state,
+        loading_settings: true,
       };
 
     case CLEAR_ERRORS:

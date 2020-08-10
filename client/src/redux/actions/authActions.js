@@ -1,14 +1,19 @@
 import axios from 'axios';
 
 import {
-  SET_LOADING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  SETTINGS_LOADED,
+  UPDATE_SETTINGS,
+  UPDATE_PASSWORD,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SET_LOADING,
+  SET_LOADING_SETTINGS,
   AUTH_ERROR,
+  SETTINGS_ERROR,
   CLEAR_ERRORS,
 } from '../types';
 
@@ -37,6 +42,58 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
       payload: error.response?.data,
+    });
+  }
+};
+
+// Load User Settings
+export const loadSettings = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  } else {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+    return;
+  }
+
+  try {
+    dispatch(setLoadingSettings());
+    const res = await axios.get('/api/auth');
+
+    dispatch({
+      type: SETTINGS_LOADED,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      payload: error.response?.data,
+    });
+  }
+};
+
+// Update profile
+export const updateProfile = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    dispatch(setLoadingSettings());
+
+    const res = await axios.put('api/users', formData, config);
+
+    dispatch({ type: UPDATE_SETTINGS, payload: res.data });
+
+    dispatch(loadUser());
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SETTINGS_ERROR,
+      payload: error?.response?.data,
     });
   }
 };
@@ -105,6 +162,11 @@ export const logout = () => async (dispatch) => {
 // Set loading to true
 export const setLoading = () => {
   return { type: SET_LOADING };
+};
+
+// Set loading settings to true
+export const setLoadingSettings = () => {
+  return { type: SET_LOADING_SETTINGS };
 };
 
 // Clear errors

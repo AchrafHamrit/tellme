@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Messages from './pages/Messages';
+import Settings from './pages/Settings';
 
 // Routes
 import PrivateRoute from './routes/PrivateRoute';
@@ -30,6 +31,7 @@ function App() {
             <Route exact path='/register' component={Register} />
             <Route exact path='/u/:username' component={Profile} />
             <PrivateRoute exact path='/messages' component={Messages} />
+            <PrivateRoute exact path='/settings' component={Settings} />
           </Switch>
         </div>
       </Provider>
