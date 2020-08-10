@@ -19,7 +19,8 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.26"
+    "mongoose": "^5.9.26",
+    "react-loading-skeleton": "^2.1.1"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

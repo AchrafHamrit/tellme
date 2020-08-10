@@ -12,7 +12,6 @@ import {
 import { setAlert } from '../../redux/actions/alertActions';
 
 // App layout components
-import Spinner from '../layout/Spinner';
 import MessageCard from '../layout/MessageCard';
 
 // Utils
@@ -85,11 +84,28 @@ const Messages = (props) => {
             </div>
 
             {loading ? (
-              <div className='mt-5'>
-                <Spinner />
+              <div className='cards-container mt-5'>
+                <MessageCard isLoading={true} />
+                <MessageCard isLoading={true} />
               </div>
             ) : !messages || !messages.length ? (
-              <div className='mt-5'>No messages</div>
+              <div className='empty'>
+                <h6 className='title mt-5'>
+                  Empty inbox{' '}
+                  <span role='img' aria-label='sad'>
+                    😥
+                  </span>
+                </h6>
+                <div className='share mt-5'>
+                  <h6>Share your profile link with friends</h6>
+                  <p className='mt-2'>
+                    <code className='py-2 px-3'>
+                      {/* http://localhost:3000/u/achraf */}
+                      {`${window.location.origin.toString()}/u/${username}`}
+                    </code>
+                  </p>
+                </div>
+              </div>
             ) : (
               <div className='cards-container mt-5'>
                 {messages.map((message) => (
