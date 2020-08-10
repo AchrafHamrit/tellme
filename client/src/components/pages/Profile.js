@@ -22,6 +22,7 @@ import FemalePicture from '../../images/female.svg';
 const Profile = (props) => {
   const {
     match,
+    user,
     user_profile,
     loading,
     loading_send,
@@ -44,6 +45,12 @@ const Profile = (props) => {
 
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    loadUserProfile(match.params.username);
+
+    // eslint-disable-next-line
+  }, [match]);
 
   useEffect(() => {
     if (error_send && error_send.length) {
@@ -110,35 +117,50 @@ const Profile = (props) => {
                 </p>
               </div>
 
-              {allow_messages ? (
-                <Form className='form form-container mt-4' onSubmit={onSubmit}>
-                  <Form.Group>
-                    <Form.Label>Your message</Form.Label>
-                    <Form.Control
-                      as='textarea'
-                      rows='3'
-                      name='message'
-                      value={message}
-                      onChange={onChange}
-                      disabled={is_sent}
-                    />
-                  </Form.Group>
+              {!user || user._id !== _id ? (
+                allow_messages ? (
+                  <Form
+                    className='form form-container mt-4'
+                    onSubmit={onSubmit}
+                  >
+                    <Form.Group>
+                      <Form.Label>Your message</Form.Label>
+                      <Form.Control
+                        as='textarea'
+                        rows='3'
+                        name='message'
+                        value={message}
+                        onChange={onChange}
+                        disabled={is_sent}
+                      />
+                    </Form.Group>
 
-                  <div className='links d-flex align-items-center justify-content-center mt-4'>
-                    {loading_send ? (
-                      <Spinner />
-                    ) : is_sent ? (
-                      <div className='message-sent'>Message sent!</div>
-                    ) : (
-                      <Button variant='primary' type='submit'>
-                        Send
-                      </Button>
-                    )}
+                    <div className='links d-flex align-items-center justify-content-center mt-4'>
+                      {loading_send ? (
+                        <Spinner />
+                      ) : is_sent ? (
+                        <div className='message-sent'>Message sent!</div>
+                      ) : (
+                        <Button variant='primary' type='submit'>
+                          Send
+                        </Button>
+                      )}
+                    </div>
+                  </Form>
+                ) : (
+                  <div className='mt-4'>
+                    <h6>Receiving messages is disabled</h6>
                   </div>
-                </Form>
+                )
               ) : (
-                <div className='mt-4'>
-                  <h6>Receiving messages is disabled</h6>
+                <div className='share mt-5'>
+                  <h6>Share your profile link with friends</h6>
+                  <p className='mt-2'>
+                    <code className='py-2 px-3'>
+                      {/* http://localhost:3000/u/achraf */}
+                      {`${window.location.origin.toString()}/u/${username}`}
+                    </code>
+                  </p>
                 </div>
               )}
             </div>
@@ -150,6 +172,7 @@ const Profile = (props) => {
 };
 
 const mapSateToProps = (state) => ({
+  user: state.auth.user,
   user_profile: state.user.user_profile,
   loading: state.user.loading,
   loading_send: state.message.loading_send,

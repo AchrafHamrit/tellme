@@ -23,4 +23,13 @@
       color: $success;
     }
   }
+
+  .share {
+    p {
+      code {
+        background-color: $light;
+        border-radius: 12px;
+      }
+    }
+  }
 }
