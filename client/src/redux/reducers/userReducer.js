@@ -6,8 +6,9 @@ import {
 } from '../types';
 
 const initialState = {
-  loading_send: false,
-  error_send: null,
+  user_profile: null,
+  loading: false,
+  error: null,
 };
 
 export default (state = initialState, action) => {

@@ -34,7 +34,7 @@ const NavbarComponent = (props) => {
 
         <Dropdown.Menu>
           <Link
-            to={`/user/${user ? user.username : ''}`}
+            to={`/u/${user ? user.username : ''}`}
             className='dropdown-item'
           >
             <FontAwesomeIcon className='icon mr-3' icon={faUser} size='lg' />
