@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://admin123:admin123@tellme.ybnix.mongodb.net/tellmeDB?retryWrites=true&w=majority",
-  "jwtSecret": "123!@#!23"
+  "mongoURI": "",
+  "jwtSecret": ""
 }
