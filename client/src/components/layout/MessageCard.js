@@ -6,13 +6,22 @@ import Skeleton from 'react-loading-skeleton';
 // Utils
 import calcDays from '../../utils/calcDays';
 
-const MessageCard = ({ message, toggleFavAction, isLoading }) => {
+const MessageCard = ({
+  message,
+  toggleFavAction,
+  isLoading,
+  handleShowModal,
+}) => {
   const { is_fav, _id, content, date } = message || {};
 
   const [isFav, setIsFav] = useState(is_fav);
   const toggleFav = async () => {
     setIsFav(!isFav);
     await toggleFavAction(_id);
+  };
+
+  const handleShow = () => {
+    handleShowModal(content);
   };
 
   if (isLoading)
@@ -41,10 +50,14 @@ const MessageCard = ({ message, toggleFavAction, isLoading }) => {
         />
       </div>
       <div className='card-inner d-flex flex-column justify-content-between'>
-        <p className='content mb-3'>{content}</p>
+        <p className='content mb-3'>
+          {content.length > 50 ? content.substring(0, 50) + '..' : content}
+        </p>
 
         <div className='card-bottom d-flex align-items-center justify-content-between'>
-          <button className='link-secondary'>View message</button>
+          <button className='link-secondary' onClick={handleShow}>
+            View message
+          </button>
           <span className='date'>{calcDays(date)}</span>
         </div>
       </div>

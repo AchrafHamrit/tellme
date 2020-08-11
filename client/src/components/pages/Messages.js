@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Container } from 'react-bootstrap';
@@ -13,6 +13,7 @@ import { setAlert } from '../../redux/actions/alertActions';
 
 // App layout components
 import MessageCard from '../layout/MessageCard';
+import MessageModal from '../layout/MessageModal';
 
 // Utils
 import { WEBSITE_NAME } from '../../utils/Data';
@@ -23,6 +24,19 @@ import MalePicture from '../../images/male.svg';
 import FemalePicture from '../../images/female.svg';
 
 const Messages = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleShowModal = (msg) => {
+    setMessage(msg);
+    setShowModal(true);
+  };
+
+  const handleHideModal = () => {
+    setShowModal(false);
+    setMessage('');
+  };
+
   const {
     user,
     messages,
@@ -100,7 +114,6 @@ const Messages = (props) => {
                   <h6>Share your profile link with friends</h6>
                   <p className='mt-2'>
                     <code className='py-2 px-3'>
-                      {/* http://localhost:3000/u/achraf */}
                       {`${window.location.origin.toString()}/u/${username}`}
                     </code>
                   </p>
@@ -113,12 +126,19 @@ const Messages = (props) => {
                     key={message._id}
                     message={message}
                     toggleFavAction={toggleFav}
+                    handleShowModal={handleShowModal}
                   />
                 ))}
               </div>
             )}
           </div>
         </div>
+
+        <MessageModal
+          show={showModal}
+          message={message}
+          onHide={handleHideModal}
+        />
       </Container>
     </>
   );
