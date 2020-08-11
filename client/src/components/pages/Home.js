@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 // Utils
 import { WEBSITE_NAME } from '../../utils/Data';
 
-const NotFound = () => {
+const Home = () => {
   return (
     <>
       <Helmet>
@@ -14,9 +14,8 @@ const NotFound = () => {
 
       <Container>
         <div className='container-inner px-3 mt-4 text-center'>
-          <div className='not-found mx-auto'>
-            <h1 className='title'>404</h1>
-            <h5 className='subtitle'>This page does not exist!</h5>
+          <div className='home mx-auto'>
+            <h1 className='title'>Home</h1>
           </div>
         </div>
       </Container>
@@ -24,4 +23,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Home;

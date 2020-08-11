@@ -8,6 +8,7 @@ import store from '../redux/store';
 // App layout components
 import Navbar from './layout/Navbar';
 import Alert from './layout/Alert';
+import Footer from './layout/Footer';
 
 // App pages
 import Login from './pages/Login';
@@ -16,6 +17,7 @@ import Profile from './pages/Profile';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
+import Home from './pages/Home';
 
 // Routes
 import PrivateRoute from './routes/PrivateRoute';
@@ -33,10 +35,11 @@ function App() {
             <Route exact path='/u/:username' component={Profile} />
             <PrivateRoute exact path='/messages' component={Messages} />
             <PrivateRoute exact path='/settings' component={Settings} />
-            <Route exact path='/' component={Messages} />
+            <Route exact path='/' component={Home} />
             <Route exact path='/404' component={NotFound} />
             <Route component={NotFound} />
           </Switch>
+          <Footer />
         </div>
       </Provider>
     </Router>
