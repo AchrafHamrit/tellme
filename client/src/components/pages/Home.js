@@ -29,7 +29,7 @@ const Home = () => {
               <Col>
                 <h3>
                   <strong>Send</strong> and <strong>receive</strong> <br />{' '}
-                  Honest opinios anonymously.
+                  Honest opinions anonymously.
                 </h3>
 
                 <Link to='/messages'>
