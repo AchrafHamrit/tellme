@@ -95,7 +95,10 @@ const Profile = (props) => {
           {loading ? (
             <Spinner />
           ) : !user_profile ? (
-            'Not found'
+            <div className='not-found mx-auto'>
+              <h1 className='title'>404</h1>
+              <h5 className='subtitle'>This page does not exist!</h5>
+            </div>
           ) : (
             <div className='profile mx-auto'>
               <img

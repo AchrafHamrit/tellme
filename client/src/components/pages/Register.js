@@ -37,7 +37,7 @@ const Register = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      props.history.push('/messages');
     }
 
     // eslint-disable-next-line

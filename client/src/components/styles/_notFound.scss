@@ -1,0 +1,10 @@
+@import 'themes/_variables';
+
+.not-found {
+  max-width: 480px;
+
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+}

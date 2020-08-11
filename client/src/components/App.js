@@ -15,6 +15,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
 
 // Routes
 import PrivateRoute from './routes/PrivateRoute';
@@ -32,6 +33,9 @@ function App() {
             <Route exact path='/u/:username' component={Profile} />
             <PrivateRoute exact path='/messages' component={Messages} />
             <PrivateRoute exact path='/settings' component={Settings} />
+            <Route exact path='/' component={Messages} />
+            <Route exact path='/404' component={NotFound} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Provider>
