@@ -1,4 +1,4 @@
 {
   "mongoURI": "",
-  "jwtSecret": ""
+  "jwtSecret": "123456"
 }
