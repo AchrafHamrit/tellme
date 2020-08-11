@@ -3,7 +3,7 @@
 <div><img src="./screenshots/logo.svg" width="250" alt="Tellme Logo"></div>
  
 **Tellme** is a MERN app that provides a service for sending and receiving opinions anonymously.
-n
+
 ### Screenshots
 
 <div><img src="./screenshots/home.png" width="800" alt="Home Page"></div>
